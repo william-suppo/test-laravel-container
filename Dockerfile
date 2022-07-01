@@ -1,3 +1,15 @@
+FROM php:8.1-cli-alpine as vendor
+
+WORKDIR /app
+
+RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer
+
+COPY composer.json composer.json
+COPY composer.lock composer.lock
+
+# Install php dependencies
+RUN composer install --quiet --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+
 FROM php:8.1-apache-buster
 
 # Set working directory
@@ -40,8 +52,5 @@ RUN apt-get -y autoremove \
 # Copy source code
 COPY --chown=www-data:www-data . /app
 
-# Install php dependencies
-RUN composer install --quiet --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
-
-# Change vendor permissions
-RUN chown www-data:www-data vendor
+# Copy vendor
+COPY --from=vendor --chown=www-data:www-data /app/vendor/ /app/vendor/
