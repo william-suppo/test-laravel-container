@@ -8,16 +8,9 @@ services:
   app:
     build:
       context: .
+      dockerfile: docker/prod.Dockerfile
     ports:
       - ${APP_PORT:-80}:80
-#      args:
-#        WWW_USER: '${WWW_USER}'
-#        WWW_GROUP: '${WWW_GROUP}'
-#    networks:
-#      - app
-#    volumes:
-#      - '.:/var/www'
-#    user: '${WWW_USER}'
 
 #  mysql:
 #    image: 'mysql:8.0'

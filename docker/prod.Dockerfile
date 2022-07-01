@@ -58,7 +58,7 @@ RUN apt-get update && apt-get install -y \
     default-mysql-client
 
 # Copy vhost config
-COPY vhost.conf /etc/apache2/sites-available/000-default.conf
+COPY docker/vhost.conf /etc/apache2/sites-available/000-default.conf
 
 # Enable Apache mods
 RUN a2enmod rewrite
