@@ -67,9 +67,6 @@ RUN a2enmod rewrite
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip curl intl
 
-# Get latest Composer
-RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer
-
 # Clean cache
 RUN apt-get -y autoremove \
 	&& apt-get clean \
