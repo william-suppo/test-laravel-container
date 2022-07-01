@@ -38,7 +38,10 @@ RUN apt-get -y autoremove \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Copy source code
-COPY . /app
+COPY --chown=www-data:www-data . /app
 
 # Install php dependencies
 RUN composer install --quiet --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+
+# Change vendor permissions
+RUN chown www-data:www-data vendor
