@@ -1,7 +1,7 @@
 FROM php:8.1-apache-buster
 
 # Set working directory
-WORKDIR /var/www
+WORKDIR /app
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -38,7 +38,7 @@ RUN apt-get -y autoremove \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Copy source code
-COPY . /var/www
+COPY . /app
 
 # Install php dependencies
 RUN composer install --quiet --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
